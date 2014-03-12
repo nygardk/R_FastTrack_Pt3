@@ -8,7 +8,8 @@ var fileToProcess = process.argv[2];
 
 var fs = require('fs'),
   readline = require('readline'),
-  solution = require('./solution');
+  solution = require('./solution'),
+  _u = require('underscore'); // _ is reserved for node
 
 var rd = readline.createInterface({
   input: fs.createReadStream(fileToProcess),
@@ -19,7 +20,7 @@ var rd = readline.createInterface({
 var tree = [];
 
 rd.on('line', function(line) {
-  if (line.indexOf('#') === -1) // simple comment skipping
+  if (line.indexOf('#') === -1 && line !== '') // simple comment and empty line skipping
     tree.push(line.split(" "));
 });
 
