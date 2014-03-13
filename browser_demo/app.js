@@ -1,4 +1,4 @@
-/* Reads tree from file
+/* Reads contents from file and returns deferred
  * @param filename {string}
  * @return deferred content {string}
  */
@@ -104,9 +104,9 @@ function indexMap(tree) {
   }
 
   var reduced = reducePath(tree);
-  console.log("Sum:", _.flatten(reduced)[0]); // outputs sum for debugging
+  console.log("Checksum by reducing:", _.flatten(reduced)[0]); // outputs sum for debugging
 
-  return indexmap.reverse(); // indexmap is created from bottom up
+  return indexmap.reverse(); // indexmap was created from bottom up
 }
 
 /* Reads tree and creates a simplified
@@ -117,11 +117,27 @@ function indexMap(tree) {
  */
 function binaryMap(tree) {
   var imap = indexMap(tree);
-  console.log(imap);
 
   var result = [];
   imap.forEach(function(level) {
     var position = _.filter(result, function(num) { return num === 1 }).length;
+    result.push(level[position]);
+  });
+
+  return result;
+}
+
+/* Takes binaryMap and tree and returns list of values based on traversal
+ * @param binaryMap {array}
+ * @param tree {array}
+ * @return values {array}
+ */
+function binaryTraversal(binarymap, tree) {
+  var result = [];
+  var position = 0;
+
+  tree.forEach(function(level, index) {
+    if (binarymap[index-1] === 1) position++;
     result.push(level[position]);
   });
 
@@ -142,13 +158,14 @@ function game(tree, binarymap) {
 /* Load tree and start game
  */
 $(document).ready(function() {
-  var tree, binarymap;
+  var tree, binarymap, values;
 
   readTree('tree.txt').done(function(content) {
     tree = readLinesIntoArray(content);
     binarymap = binaryMap(tree);
-    // console.log(tree);
-    // console.log(binarymap);
+    values = binaryTraversal(binarymap, tree);
+    console.log("Sum by traversal:", _.reduce(values, function(memo, num) { return memo + num } ));
     game();
   })
 });
+
