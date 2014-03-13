@@ -144,53 +144,53 @@ function binaryTraversal(binarymap, tree) {
   return result;
 }
 
-/* Run game
+/* Run demo
  */
-function startGame(tree, binarymap, values) {
-  var score = $('#score');
-  var car = new Car();
+function startDemo(tree, binarymap, values) {
 
-  car.forward();
-  car.forward();
-  car.forward();
-  binarymap.forEach(function(choice, index) {
-    choice ? car.right() : car.left();
+  var car = new Car($('#car'));
+
+  _.times(4, function() {car.forward(0)});
+  values.forEach(function(value, index) {
+    binarymap[index] ? car.right(value) : car.left(value);
   });
-  car.forward();
-  car.forward();
-  car.forward();
+  _.times(4, function() {car.forward(0)});
 }
 
-function Car() {
-  var platform = $('#numbers');
-  var duration = 150;
+function Car(container) {
+  var platform = $('#numbers'),
+      score = $('#score'),
+      duration = 200;
 
-  function move(css, value) {
+  function move(css, classname, points) {
     platform.animate(css, {
       duration: duration,
       easing: 'linear',
-      complete: function() {
-        $('#score').val(value);
+      start: function() {
+        console.log(points);
+        container.removeClass().addClass(classname);
+        score.html(parseInt(score.text())+points)
       }
     })
   }
 
   return {
-    forward: function(value) {
-      move({bottom: "-=80"}, value);
+    container: container,
+    forward: function(points) {
+      move({bottom: "-=80"}, 'forward', points);
     },
-    left: function(value) {
-     move({bottom: "-=80", left: "+=40"}, value);
+    left: function(points) {
+      move({bottom: "-=80", left: "+=40"}, 'left', points);
     },
-    right: function(value) {
-      move({bottom: "-=80", left: "-=40"}, value);
+    right: function(points) {
+      move({bottom: "-=80", left: "-=40"}, 'right', points);
     }
   }
 }
 
-/* Initializes game
+/* Initializes demo
  */
-function initGame(tree, binarymap) {
+function initDemo(tree, binarymap) {
   var loc = $('#numbers');
   var html = "";
 
@@ -204,7 +204,7 @@ function initGame(tree, binarymap) {
   loc.append(html);
 }
 
-/* Load tree and start game
+/* Load tree and start demo
  */
 $(document).ready(function() {
   var tree, binarymap, values;
@@ -214,8 +214,8 @@ $(document).ready(function() {
     binarymap = binaryMap(tree);
     values = binaryTraversal(binarymap, tree);
     console.log("Sum by traversal:", _.reduce(values, function(memo, num) { return memo + num } ));
-    initGame(tree, binarymap);
-    startGame(tree, binarymap, values);
+    initDemo(tree, binarymap);
+    startDemo(tree, binarymap, values);
   })
 });
 

@@ -1,9 +1,11 @@
 @import "compass/reset";
 @import "compass/css3/transform";
+@import "compass/css3/images";
 @import url(http://fonts.googleapis.com/css?family=VT323);
 
 $color-ground: rgb(230,218,203);
 $cell-size: 80px;
+$road-width: 700px;
 
 body, html {
   height: 100%;
@@ -29,7 +31,7 @@ body {
   overflow: hidden;
 }
 
-#view {
+#perspective-view {
   width: 100%;
 
   position: absolute;
@@ -37,8 +39,6 @@ body {
 
   @include rotateX(50deg, 200);
 }
-
-$road-width: 640px;
 
 #road {
   height: 350px;
@@ -53,14 +53,20 @@ $road-width: 640px;
 
 #car {
   position: absolute;
-  width: 70px;
-  height: 100px;
+  width: 100px;
+  height: 59px;
 
-  bottom: 60px;
+  bottom: 10px;
   left: 50%;
-  margin-left: -35px;
+  margin-left: -50px;
 
-  background-color: rgba(100,0,0,0.4);
+  @include background(image-url('testarossa_sprite.png'));
+  background-repeat: no-repeat;
+  background-position: -100px 0;
+
+  &.forward { background-position: -100px 0; }
+  &.right { background-position: 0 0; }
+  &.left { background-position: -200px 0; }
 }
 
 #numbers {
@@ -76,7 +82,7 @@ $road-width: 640px;
   font-size: 2.0em;
   color: white;
 
-  margin-bottom: 100px;
+  margin-bottom: 130px;
 
   & > div {
     position: relative;
@@ -94,8 +100,11 @@ $road-width: 640px;
 
 #finishline {
   display: block !important;
+  width: 100% !important;
   height: 40px;
-  background-color: white;
+  margin-bottom: 100px;
+  @include background(image-url('finishline.png'));
+  background-size: 40px;
 }
 
 #ground {
