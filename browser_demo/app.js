@@ -145,14 +145,63 @@ function binaryTraversal(binarymap, tree) {
 }
 
 /* Run game
- *
  */
-function game(tree, binarymap) {
-  var config = {};
+function startGame(tree, binarymap, values) {
+  var score = $('#score');
+  var car = new Car();
 
-  config.heightX = $('#numbers').height();
+  car.forward();
+  car.forward();
+  car.forward();
+  binarymap.forEach(function(choice, index) {
+    choice ? car.right() : car.left();
+  });
+  car.forward();
+  car.forward();
+  car.forward();
+}
 
-  $('#numbers').animate({bottom: -config.heightX}, 3000);
+function Car() {
+  var platform = $('#numbers');
+  var duration = 150;
+
+  function move(css, value) {
+    platform.animate(css, {
+      duration: duration,
+      easing: 'linear',
+      complete: function() {
+        $('#score').val(value);
+      }
+    })
+  }
+
+  return {
+    forward: function(value) {
+      move({bottom: "-=80"}, value);
+    },
+    left: function(value) {
+     move({bottom: "-=80", left: "+=40"}, value);
+    },
+    right: function(value) {
+      move({bottom: "-=80", left: "-=40"}, value);
+    }
+  }
+}
+
+/* Initializes game
+ */
+function initGame(tree, binarymap) {
+  var loc = $('#numbers');
+  var html = "";
+
+  tree.reverse().forEach(function(level) {
+    level.forEach(function(node, index) {
+      html += '<div>'+node+'</div>';
+      if (index === level.length-1) html += '<br>';
+    })
+  });
+
+  loc.append(html);
 }
 
 /* Load tree and start game
@@ -165,7 +214,8 @@ $(document).ready(function() {
     binarymap = binaryMap(tree);
     values = binaryTraversal(binarymap, tree);
     console.log("Sum by traversal:", _.reduce(values, function(memo, num) { return memo + num } ));
-    game();
+    initGame(tree, binarymap);
+    startGame(tree, binarymap, values);
   })
 });
 
