@@ -31,8 +31,12 @@ function readLinesIntoArray(content) {
   });
 }
 
-/*
- *
+/* Creates collated pairs of a list
+ * Example:
+ *   input:  [1,2,3,4,5]
+ *   output: [[1,2],[2,3],[3,4],[4,5]]
+ * @param list {array}
+ * @return pair-arrays {array}
  */
 function pairs(list) {
   var result = [];
@@ -43,7 +47,8 @@ function pairs(list) {
 }
 
 /* Selects best indexes
- *
+ * @param list {array}
+ * @return list of best indexes {array}
  */
 function selectBestIndexes(list) {
   return pairs(list).map(function(pair) {
@@ -52,6 +57,8 @@ function selectBestIndexes(list) {
 }
 
 /* Returns values from list by choice indexes
+ * @param list {array}
+ * @return list of best indexes {array}
  */
 function valuesByChoices(list, indexes) {
   if (list.length !== indexes.length+1)
@@ -64,41 +71,44 @@ function valuesByChoices(list, indexes) {
 /* Sum individiual list items to the last list of tree
  */
 function sumToLast(tree, list) {
+  if (!list.length) return tree;
   if (_.last(tree).length !== list.length)
     throw new Error ("last list length in tree and given list do not match");
-  return _.initial(tree).push(_.last(tree).map(function(item, i) {
-    return item + list[i];
-  }));
+  var result = _.initial(tree);
+  result.push(_.last(tree).map(function(item, i) {return item + list[i] }));
+  return result;
 }
 
-/* Reads tree and creates a binary map for path,
- * where value 0 represents the first (=left) choice
- * and 1 represents the latter (=right) choice
+/* Reads tree and creates indexmap of choices
+ * for the best path, where value 0 represents
+ * ignored path for current (cumulated) level and
+ * value 1 represents the best path
+ * Example:
+ *   input =  [ [10], [11,5], [8,12,1], [3,4,55,12] ]
+ *   output = [ [0], [1,0], [1,1,0] ]
  * @param tree {array}
- * @return binaryMap {array}
+ * @return indexmap {array}
  */
-function binaryMap(tree) {
-  var binaryMap = [];
+function indexMap(tree) {
+  var indexmap = [];
 
-  /*
-   *
-   */
-  function findPath(tree) {
-    if (tree.length > 0) {
+  function reducePath(tree) {
+    if (tree.length > 1) {
       var choices = selectBestIndexes(_.last(tree));
-      binaryMap.push(choices);
+      indexmap.push(choices);
 
-      return findPath(sumToLast(_.initial(tree),
-                                valuesByChoices(_.last(tree), choices) ));
+      return reducePath(sumToLast(_.initial(tree),
+                        valuesByChoices(_.last(tree), choices)));
     }
     return tree;
   }
 
-  var sum = findPath(tree);
-  console.log(sum);
-  console.log(binaryMap);
+  var reduced = reducePath(tree);
+  console.log("Sum:", _.flatten(reduced)[0]); // outputs sum for debugging
 
-  return binaryMap;
+  return indexmap.reverse(); // indexmap is created from bottom up
+}
+
 }
 
 /* Run game
