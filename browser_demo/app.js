@@ -81,7 +81,7 @@ function sumToLast(tree, list) {
 
 /* Reads tree and creates indexmap of choices
  * for the best path, where value 0 represents
- * ignored path for current (cumulated) level and
+ * ignored path for current (cumulated) i and
  * value 1 represents the best path
  * Example:
  *   input =  [ [10], [11,5], [8,12,1], [3,4,55,12] ]
@@ -109,6 +109,23 @@ function indexMap(tree) {
   return indexmap.reverse(); // indexmap is created from bottom up
 }
 
+/* Reads tree and creates a simplified
+ * binarymap where value 0 represents turn to first (=left)
+ * choice and 1 represents a turn to latter (=right) choice
+ * @param tree {array}
+ * @return binaryMap {array}
+ */
+function binaryMap(tree) {
+  var imap = indexMap(tree);
+  console.log(imap);
+
+  var result = [];
+  imap.forEach(function(level) {
+    var position = _.filter(result, function(num) { return num === 1 }).length;
+    result.push(level[position]);
+  });
+
+  return result;
 }
 
 /* Run game
