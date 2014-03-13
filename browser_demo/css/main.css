@@ -1,0 +1,172 @@
+@import url(http://fonts.googleapis.com/css?family=VT323);
+/* line 5, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.0.alpha.17/stylesheets/compass/reset/_utilities.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+/* line 22, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.0.alpha.17/stylesheets/compass/reset/_utilities.scss */
+html {
+  line-height: 1;
+}
+
+/* line 24, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.0.alpha.17/stylesheets/compass/reset/_utilities.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 26, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.0.alpha.17/stylesheets/compass/reset/_utilities.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 28, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.0.alpha.17/stylesheets/compass/reset/_utilities.scss */
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+/* line 30, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.0.alpha.17/stylesheets/compass/reset/_utilities.scss */
+q, blockquote {
+  quotes: none;
+}
+/* line 103, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.0.alpha.17/stylesheets/compass/reset/_utilities.scss */
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+/* line 32, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.0.alpha.17/stylesheets/compass/reset/_utilities.scss */
+a img {
+  border: none;
+}
+
+/* line 116, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.0.alpha.17/stylesheets/compass/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
+  display: block;
+}
+
+/* line 8, ../sass/main.scss */
+body, html {
+  height: 100%;
+  overflow: hidden;
+  font-family: 'VT323', monospace;
+}
+
+/* line 14, ../sass/main.scss */
+body {
+  background-color: black;
+}
+
+/* line 18, ../sass/main.scss */
+#monitor {
+  width: 1000px;
+  height: 700px;
+  top: 50%;
+  margin-top: -350px;
+  left: 50%;
+  margin-left: -500px;
+  background-color: #008bff;
+  position: absolute;
+  overflow: hidden;
+}
+
+/* line 32, ../sass/main.scss */
+#view {
+  width: 100%;
+  position: absolute;
+  bottom: -25px;
+  -moz-transform: perspective(200) rotateX(50deg);
+  -webkit-transform: perspective(200) rotateX(50deg);
+  transform: perspective(200) rotateX(50deg);
+}
+
+/* line 43, ../sass/main.scss */
+#road {
+  height: 350px;
+  width: 640px;
+  margin: 0 auto;
+  background-color: grey;
+  position: relative;
+  overflow: hidden;
+}
+
+/* line 54, ../sass/main.scss */
+#car {
+  position: absolute;
+  width: 70px;
+  height: 100px;
+  bottom: 60px;
+  left: 50%;
+  margin-left: -35px;
+  background-color: rgba(100, 0, 0, 0.4);
+}
+
+/* line 66, ../sass/main.scss */
+#numbers {
+  width: 8000px !important;
+  margin-left: -3680px;
+  position: absolute;
+  bottom: 200px;
+  left: 0;
+  text-align: center;
+  font-weight: bold;
+  font-size: 2.0em;
+  color: white;
+  margin-bottom: 100px;
+}
+/* line 81, ../sass/main.scss */
+#numbers > div {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  text-align: center;
+  vertical-align: middle;
+  display: inline-block;
+}
+/* line 90, ../sass/main.scss */
+#numbers .last {
+  clear: left;
+}
+
+/* line 95, ../sass/main.scss */
+#finishline {
+  display: block !important;
+  height: 40px;
+  background-color: white;
+}
+
+/* line 101, ../sass/main.scss */
+#ground {
+  width: 2000px;
+  margin-left: -500px;
+  background-color: #e6dacb;
+}
+
+/* line 107, ../sass/main.scss */
+#hud {
+  text-align: right;
+  font-size: 3.0em;
+  color: white;
+  position: absolute;
+  top: 20px;
+  right: 50px;
+}
