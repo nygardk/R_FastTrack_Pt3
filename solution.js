@@ -1,9 +1,6 @@
 _u = require('underscore');
 
-
-/*** SOLUTION ***/
-
-function findSolution(tree) {
+function findSolution(treearray) {
 
   function pairs(numlist) {
     var result = [];
@@ -19,30 +16,27 @@ function findSolution(tree) {
     })
   }
 
-  function getSum(levels) {
-    if (levels.length > 1) {
-      return getSum(_u.initial(_u.map(levels, function(level, index) {
-        if (index === levels.length-2)
-          return _u.map(level, function(number, i) {
-            return number + biggestNodes(_u.last(levels))[i]
-          })
-        return level;
-      })));
-    } else { // last level
-      return _u.first(_u.flatten(levels));
-    }
+  function sumToLast(tree, sumlevel) {
+    return _u.initial(tree).concat([_u.map(_u.last(tree), function(node, index) {
+      return node + sumlevel[index]
+    })]);
+  }
+
+  function getSum(tree) {
+    if (tree.length > 1)
+      return getSum(sumToLast(_u.initial(tree),
+                              biggestNodes(_u.last(tree))) );
+    return _u.first(_u.flatten(tree));
   }
 
   // explicitly convert nodes to int
-  var levels = tree.map(function(layer) {
-    return layer.map(function(node) { return parseInt(node) })
+  var tree = treearray.map(function(level) {
+    return level.map(function(node) { return parseInt(node) })
   });
 
-  return getSum(levels);
+  return getSum(tree);
 }
 
-/*** /SOLUTION ***/
 
-
- // for node and browser compatibility
- (typeof exports !== 'undefined')?exports.findSolution=findSolution:{};
+ // for node
+ exports.findSolution = findSolution;
