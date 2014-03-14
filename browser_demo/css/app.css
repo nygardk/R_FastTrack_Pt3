@@ -144,7 +144,7 @@ body {
   bottom: 10px;
   left: 50%;
   margin-left: -50px;
-  background: url('/img/testarossa_sprite.png?1394738559');
+  background-image: url("../img/testarossa_sprite.png");
   background-repeat: no-repeat;
   background-position: -100px 0;
 }
@@ -193,7 +193,7 @@ body {
   width: 100% !important;
   height: 40px;
   margin-bottom: 100px;
-  background: url('/img/finishline.png?1394739008');
+  background-image: url("../img/finishline.png");
   background-size: 40px;
 }
 
