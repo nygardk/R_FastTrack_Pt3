@@ -5,19 +5,12 @@ _u = require('underscore');
 
 function findSolution(tree) {
 
-  function sumArrayValues(arrayTo, arrayFrom) {
-    return arrayTo.map(function(val, index) { // fix
-      if (index > arrayFrom.length-1) return val;
-      return val + arrayFrom[index];
-    });
-  }
-
   function pairs(numlist) {
-
-    return _u.compact(numlist.map(function(number, index, list) {
-      if (index === list.length-1) return null;
-      return [number, list[index+1]];
-    }))
+    var result = [];
+    for (var i = 0; i < numlist.length - 1; i++) {
+      result.push([numlist[i], numlist[i+1]]);
+    };
+    return result;
   }
 
   function biggestNodes(nodes) {
@@ -40,12 +33,12 @@ function findSolution(tree) {
     }
   }
 
-  // explicitly convert nodes to int and reverse order
+  // explicitly convert nodes to int
   var levels = tree.map(function(layer) {
     return layer.map(function(node) { return parseInt(node) })
   });
 
-  console.log(getSum(levels));
+  return getSum(levels);
 }
 
 /*** /SOLUTION ***/

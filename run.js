@@ -8,8 +8,7 @@ var fileToProcess = process.argv[2];
 
 var fs = require('fs'),
   readline = require('readline'),
-  solution = require('./solution'),
-  _u = require('underscore'); // _ is reserved for node
+  solution = require('./solution');
 
 var rd = readline.createInterface({
   input: fs.createReadStream(fileToProcess),
@@ -25,5 +24,6 @@ rd.on('line', function(line) {
 });
 
 rd.on('close', function() {
-  solution.findSolution(tree);
+  var answer = solution.findSolution(tree);
+  console.log(answer);
 });
