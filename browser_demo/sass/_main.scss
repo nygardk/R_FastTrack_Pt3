@@ -1,6 +1,4 @@
-@import "compass/reset";
-@import "compass/css3/transform";
-@import "compass/css3/images";
+@import "compass/css3";
 @import url(http://fonts.googleapis.com/css?family=VT323);
 
 $color-ground: rgb(230,218,203);
@@ -10,11 +8,15 @@ $road-width: 700px;
 body, html {
   height: 100%;
   overflow: hidden;
-  font-family: 'VT323', monospace;
+
 }
 
 body {
+  font-family: 'VT323', monospace;
+  color: white;
   background-color: black;
+  text-transform: uppercase;
+  @include text-shadow(#222 4px 4px 0);
 }
 
 #monitor {
@@ -74,15 +76,14 @@ body {
   margin-left: -(8000/2-$road-width/2);
 
   position: absolute;
-  bottom: 200px;
+  bottom: 0;
   left: 0;
 
   text-align: center;
   font-weight: bold;
   font-size: 2.0em;
-  color: white;
 
-  margin-bottom: 130px;
+  margin-bottom: 330px;
 
   & > div {
     position: relative;
@@ -116,8 +117,39 @@ body {
 #hud {
   text-align: right;
   font-size: 3.0em;
-  color: white;
   position: absolute;
   top: 20px;
   right: 50px;
+}
+
+.button {
+  text-transform: uppercase;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.hint {
+  font-size: 0.4em;
+  color: #aaa;
+  @include text-shadow(#222 2px 2px 0);
+}
+
+#audio {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 2.5em;
+  @include text-shadow(#222 2px 2px 0);
+
+  z-index: 999;
+
+  &.on {
+    i.on { display: block; }
+    i.off { display: none; };
+  }
+
+  &.off {
+    i.on { display: none; }
+    i.off { display: block; }
+  }
 }

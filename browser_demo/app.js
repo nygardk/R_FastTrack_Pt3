@@ -144,10 +144,33 @@ function binaryTraversal(binarymap, tree) {
   return result;
 }
 
+/* Creates HTML map
+ */
+function createMap(tree) {
+  var loc = $('#numbers');
+  loc.empty(); // clear contents
+  var html = "";
+
+  tree.reverse().forEach(function(level) {
+    level.forEach(function(node, index) {
+      html += '<div>'+node+'</div>';
+      if (index === level.length-1) html += '<br>';
+    })
+  });
+
+  loc.append('<div id="finishline"></div>');
+  loc.append(html);
+}
+
+/* Initializes demo
+ */
+function initDemo() {
+
+}
+
 /* Run demo
  */
 function startDemo(tree, binarymap, values) {
-
   var car = new Car($('#car'));
 
   _.times(4, function() {car.forward(0)});
@@ -155,6 +178,15 @@ function startDemo(tree, binarymap, values) {
     binarymap[index] ? car.right(value) : car.left(value);
   });
   _.times(4, function() {car.forward(0)});
+
+  car.finish();
+}
+
+/* Ends demo
+ */
+function endDemo(score) {
+  $('#start-modal').animate({bottom: 0}, 500);
+  $('#score-modal').empty().html('tulos: '+score).fadeIn(500).delay(2000).fadeOut(1000);
 }
 
 function Car(container) {
@@ -166,13 +198,18 @@ function Car(container) {
     platform.animate(css, {
       duration: duration,
       easing: 'linear',
+      queue: true,
       start: function() {
-        console.log(points);
         container.removeClass().addClass(classname);
-        score.html(parseInt(score.text())+points)
+        score.html(parseInt(score.text())+points);
       }
     })
   }
+
+  // reset
+  platform.css('bottom', 0);
+  platform.css('left', 0);
+  score.html(0);
 
   return {
     container: container,
@@ -184,38 +221,69 @@ function Car(container) {
     },
     right: function(points) {
       move({bottom: "-=80", left: "-=40"}, 'right', points);
+    },
+    finish: function(callback) {
+      platform.queue(function() {
+        endDemo(parseInt(score.text()));
+        platform.dequeue();
+      });
     }
   }
 }
 
-/* Initializes demo
- */
-function initDemo(tree, binarymap) {
-  var loc = $('#numbers');
-  var html = "";
+function selectFile(file) {
+  if (!window.File || !window.FileReader || !window.FileList || !window.Blob)
+    alert('File loading is not fully supported in this browser.');
 
-  tree.reverse().forEach(function(level) {
-    level.forEach(function(node, index) {
-      html += '<div>'+node+'</div>';
-      if (index === level.length-1) html += '<br>';
-    })
-  });
+  var r = $.Deferred();
+  var fileInput = $('#input').get(0);
 
-  loc.append(html);
+  var file = fileInput.files[0];
+  var textType = /text.*/;
+  var contents;
+
+  if (file.type.match(textType)) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      contents = reader.result;
+      return r.resolve(contents);
+    }
+    reader.readAsText(file);
+  } else { alert('Tiedoston pitää olla tekstitiedosto!') }
+
+  return r;
 }
 
-/* Load tree and start demo
- */
-$(document).ready(function() {
-  var tree, binarymap, values;
 
-  readTree('tree.txt').done(function(content) {
+$(document).ready(function() {
+  var content;
+
+  function start(content) {
+    var tree, binarymap, values;
+
     tree = readLinesIntoArray(content);
     binarymap = binaryMap(tree);
     values = binaryTraversal(binarymap, tree);
     console.log("Sum by traversal:", _.reduce(values, function(memo, num) { return memo + num } ));
-    initDemo(tree, binarymap);
-    startDemo(tree, binarymap, values);
-  })
-});
 
+    createMap(tree);
+    startDemo(tree, binarymap, values);
+  }
+
+  $('#start').click(function() {
+    $('#start-modal').animate({bottom: -$('#start-modal').height()}, 500);
+    if (null == content) readTree('tree.txt').done(function(content) { start(content) })
+    else { start(content) }
+  });
+
+  $('#audio').click(function() {
+    var player = $('#player').get(0);
+    $(this).toggleClass('on off');
+    if ($(this).hasClass('on')) player.play();
+    else if ($(this).hasClass('off')) player.pause();
+  });
+
+  $("#input").change(function(e) {
+    selectFile(e).done(function(data) { content = data });
+  });
+});

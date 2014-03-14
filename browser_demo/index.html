@@ -1,28 +1,74 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Reaktor FastTrack pt3 Sega OuRun demo</title>
-  <link rel="stylesheet" href="css/main.css">
+  <meta charset="UTF-8">
+  <meta name="author" content="Klaus Nygård">
+  <meta name="twitter:creator" content="@KlausNygard">
+  <title>Reaktor FastTrack pt3 Sega Out Run demo</title>
+
+  <link rel="stylesheet" href="css/app.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
   <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
   <script src="//code.jquery.com/jquery-2.1.0.min.js"></script>
   <script src="app.js"></script>
 </head>
 <body>
 
+<!--[if lt IE 10]>
+  <div class="browser-warning">
+    <p>Hi! I'm sorry, but this demo will not work properly on your old browser. Please update it to some of the following:</p>
+    <ul>
+      <li><a href="http://google.com/chrome/" target="_blank">Google Chrome</a></li>
+      <li><a href="http://mozilla.org/firefox/" target="_blank">Mozilla Firefox</a></li>
+      <li><a href="http://opera.com/download/" target="_blank">Opera</a></li>
+    </ul>
+    <p>or to Internet Explorer version 10 or above.</p>
+    <hr>
+  </div>
+<![endif]-->
+
 <div id="monitor">
   <div id="hud">
     <div id="score">0</div>
   </div>
+
   <div id="perspective-view">
     <div id="ground">
       <div id="road">
         <div id="numbers">
-          <div id="finishline"></div>
         </div>
       </div>
     </div>
   </div>
+
   <div id="car"></div>
+
+  <div id="audio" class="on">
+    <audio id="player" src="audio/music.mp3" autoplay loop></audio>
+    <i class="fa fa-volume-up on button"></i>
+    <i class="fa fa-volume-off off button"></i>
+  </div>
+
+  <div id="start-modal">
+    <div class="middle-horizontal">
+      <div class="middle-vertical">
+        <div class="middle-content">
+          <div id="start" class="button">Start</div>
+          <div id="options">
+            <div id="select-file">
+              Lataa tree.txt (vaihtoehtoinen):<br>
+              <input type="file" id="input">
+            </div>
+            <div class="hint">Muutoin käytetään ennaltamääritettyä puuta</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="score-modal">
+    <div id="result"></div>
+  </div>
 </div>
 
 </body>
