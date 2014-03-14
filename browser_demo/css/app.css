@@ -228,6 +228,11 @@ body {
 }
 
 /* line 137, ../sass/_main.scss */
+.start {
+  font-size: 1.7em;
+}
+
+/* line 141, ../sass/_main.scss */
 #audio {
   position: absolute;
   top: 20px;
@@ -236,19 +241,19 @@ body {
   text-shadow: #222222 2px 2px 0;
   z-index: 999;
 }
-/* line 147, ../sass/_main.scss */
+/* line 151, ../sass/_main.scss */
 #audio.on i.on {
   display: block;
 }
-/* line 148, ../sass/_main.scss */
+/* line 152, ../sass/_main.scss */
 #audio.on i.off {
   display: none;
 }
-/* line 152, ../sass/_main.scss */
+/* line 156, ../sass/_main.scss */
 #audio.off i.on {
   display: none;
 }
-/* line 153, ../sass/_main.scss */
+/* line 157, ../sass/_main.scss */
 #audio.off i.off {
   display: block;
 }

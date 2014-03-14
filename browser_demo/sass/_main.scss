@@ -134,6 +134,10 @@ body {
   @include text-shadow(#222 2px 2px 0);
 }
 
+.start {
+  font-size: 1.7em;
+}
+
 #audio {
   position: absolute;
   top: 20px;
