@@ -1,6 +1,6 @@
 # Description
 
-This is a solution to a coding problem published by Reaktor.
+This is a solution to a coding problem [published](http://reaktor.fi/careers/fast_track/) by Reaktor.
 Solution.js contains a simple solution to the problem, where as
 browser_demo contains another solution and runs a graphical demo
 inspired by Sega Out Run.
