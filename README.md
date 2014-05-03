@@ -16,7 +16,7 @@ sum from the nodes. Example tree:
 
         5
       14 23
-     23 81 43
+     81 23 43
     43 51 33 10
 
 where the largest sum would cumulate by route [5,14,81,51], thus resulting in
