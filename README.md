@@ -6,7 +6,7 @@ browser_demo contains another solution and runs a graphical demo
 inspired by Sega Out Run.
 
 You may see the demo in action here:
-<br>[http://klausnygard.fi/reaktor-fast-track-pt3-solution/](http://klausnygard.fi/reaktor-fast-track-pt3-solution/)
+<br>[http://demos.klausnygard.fi/reaktor-fast-track-pt3-solution/](http://demos.klausnygard.fi/reaktor-fast-track-pt3-solution/)
 
 ## Problem definition
 
